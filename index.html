@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="id"> 
+ <head> 
+  <title>Kalkulator</title> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <style>
+ body {
+ background: url('https://pomf2.lain.la/f/tdliohr4.jpg') no-repeat center/cover;
+ font-family: Arial, sans-serif;
+}
+ 
+ .kalkulator {
+ width: 300px;
+ margin: 50px auto;
+ padding: 20px;
+ background-color: rgba(0,0,0,0.5);
+ border: 1px solid #333;
+ box-shadow: 0 0 10px rgba(0,0,0,0.5);
+ }
+ 
+ .kalkulator h1 {
+ color: #fff;
+ text-align: center;
+ }
+ 
+ #layar {
+ width: 100%;
+ height: 30px;
+ padding: 10px;
+ border: 1px solid #333;
+ font-size: 24px;
+ text-align: right;
+ color: #fff;
+ background-color: rgba(0,0,0,0.5);
+ }
+ 
+ .tombol {
+ display: grid;
+ grid-template-columns: repeat(4, 1fr);
+ gap: 10px;
+ }
+ 
+ 
+ button {
+ width: 50px;
+ height: 30px;
+ background-color: #4CAF50;
+ color: #fff;
+ border: none;
+ cursor: pointer;
+ border-radius: 5px;
+ box-shadow: 0 0 5px rgba(0,0,0,0.2);
+ }
+ 
+ button:hover {
+ background-color: #3e8e41;
+ }
+ </style> 
+ </head> 
+ <body> 
+  <div class="kalkulator"> 
+   <h1>Kalkulator</h1> 
+   <input type="text" id="layar" disabled> 
+   <div class="tombol"> <button id="tujuh">7</button> <button id="delapan">8</button> <button id="sembilan">9</button> <button id="bagi">/</button> <button id="empat">4</button> <button id="lima">5</button> <button id="enam">6</button> <button id="kali">*</button> <button id="satu">1</button> <button id="dua">2</button> <button id="tiga">3</button> <button id="kurang">-</button> <button id="nol">0</button> <button id="hapus">C</button> <button id="sama-dengan">=</button> <button id="tambah">+</button> 
+   </div> 
+  </div> 
+  <script>
+ const layar = document.getElementById('layar');
+ const tombol = document.querySelectorAll('.tombol button');
+ 
+ let nilaiSebelumnya = '';
+ let operator = '';
+ 
+ tombol.forEach(tombol => {
+ tombol.addEventListener('click', () => {
+ if (tombol.textContent === '=') {
+ hitung();
+ } else if (tombol.textContent === 'C') {
+ layar.value = '';
+ nilaiSebelumnya = '';
+ operator = '';
+ } else {
+ if (['+', '-', '*', '/'].includes(tombol.textContent)) {
+ operator = tombol.textContent;
+ nilaiSebelumnya = layar.value;
+ layar.value = '';
+ } else {
+ layar.value += tombol.textContent;
+ }
+ }
+ });
+ });
+ 
+ function hitung() {
+ let hasil;
+ switch (operator) {
+ case '+':
+ hasil = parseFloat(nilaiSebelumnya) + parseFloat(layar.value);
+ break;
+ case '-':
+ hasil = parseFloat(nilaiSebelumnya) - parseFloat(layar.value);
+ break;
+ case '*':
+ hasil = parseFloat(nilaiSebelumnya) * parseFloat(layar.value);
+ break;
+ case '/':
+ hasil = parseFloat(nilaiSebelumnya) / parseFloat(layar.value);
+ break;
+ default:
+ hasil = layar.value;
+ }
+ layar.value = hasil;
+ }
+ </script> 
+ 
+</body></html>
